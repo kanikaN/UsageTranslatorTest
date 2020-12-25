@@ -1,24 +1,37 @@
-# Lumen PHP Framework
+# Usage Translator Service Coding Challenge - Net Nation
 
 [![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
 [![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
 [![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
 [![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
 
-## Official Documentation
+## Steps to run the project
+  The test was made using Lumen - a microframework of laravel
+  It comes with its server setting using Homestead
+  - To start the server , run -
+       #####composer install
+  - For the purpose of this test, musql is running through docker, using a mysql image
+  to start mysql run
+      #####docker compose up
+## For running the test
+The input csv file, Sample_Report.csv is passed through an api call. please note, i havnt used any host alias, at this point it will run on localhost. Configuration defined in .env file 
+- the api will be a POST call to localhost:8080/upload-file.
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+- Default Output with be insert queries for Chargeable and Domains tables.
 
-## Contributing
+## Possible Configurations
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+For the purpose of this test, the possible configurations are added to the .env file
 
-## Security Vulnerabilities
+Some of the possible configurations are listed below
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+- RETURN_PREPARED_QUERY - This decides if the output query is a raw insert query or a prepared query which is a default format for lumen query builder. Defaults to TRUE (lumen query builder format)
 
-## License
+- EXECUTE_QUERY - If you wish to run the query and see the entries in the database, set this to TRUE, Defaults to FALSE.
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- INSERT_BATCH_SIZE - this decides the batch size of an insert query. defaults to 10.
+
+
+## Logging
+For the purpose of this test, the expected logs are added to storage/logs folder
