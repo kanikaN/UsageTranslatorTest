@@ -1,12 +1,7 @@
 # Usage Translator Service Coding Challenge - Net Nation
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
 
-
-## Steps to run the project
+## Steps to start the project
   The test was made using Lumen - a microframework of laravel
   It comes with its server setting using Homestead
   - To start the server , run -
