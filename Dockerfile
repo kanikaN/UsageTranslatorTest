@@ -1,9 +1,5 @@
 FROM php:7.4-fpm
 
-# Arguments defined in docker-compose.yml
-ARG user
-ARG uid
-
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
@@ -19,10 +15,23 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-# Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
+# Create system user to run Composer and Artisan Commands.
+RUN mkdir -p /home/phpuser/.composer && \
+    useradd -G www-data -u 1001 -d /home/phpuser phpuser && \
+    chown -R phpuser:phpuser /home/phpuser
 
-WORKDIR /var/www
-USER $user
+# Install the application.
+WORKDIR /tmp
+RUN git clone https://github.com/kanikaN/UsageTranslatorTest.git && \
+    cp -R /tmp/UsageTranslatorTest/* /var/www/html && \
+    rm -rf /tmp/*
+
+WORKDIR /var/www/html
+RUN composer install
+RUN php artisan migrate:install && \
+    php artisan migrate:fresh
+
+EXPOSE 8080
+USER phpuser
+
+ENTRYPOINT ["php", "-S", "app:8080", "-t", "public"]

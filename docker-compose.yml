@@ -1,48 +1,38 @@
 version: "3.8"
 services:
   app:
-    build:
-      args:
-        user: php
-        uid: 1001
-      context: ./
-      dockerfile: Dockerfile
-    image: php-fpm_74
-    container_name: php-fpm
+    build: .
+    depends_on:
+      - db
+    image: php-fpm/app
+    container_name: app
     restart: unless-stopped
     volumes:
-      - ./:/var/www
-      - ./fpm:/usr/local/etc/php
+      - app:/home/phpuser
+      - ./.env://var/www/html/.env
     networks:
       - localnet
-  nginx:
-    image: nginx:1.19.6-alpine
-    container_name: web-server
-    restart: unless-stopped
     ports:
-      - 8080:80
-    volumes:
-      - ./:/var/www
-      - ./www:/etc/nginx/conf.d
-    networks:
-      - localnet
+      - "8080:8080"
+    expose:
+      - "8080"
   db:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: 'db'
+      MYSQL_DATABASE: 'test'
       # So you don't have to use root, but you can if you like
       MYSQL_USER: 'user'
       # You can use whatever password you like
-      MYSQL_PASSWORD: 'password'
+      MYSQL_PASSWORD: 'root'
       # Password for root access
-      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'root'
     ports:
       # <Port exposed> : < MySQL Port running inside container>
-      - '3306:3306'
+      - "3306:3306"
     expose:
       # Opens port 3306 on the container
-      - '3306'
+      - "3306"
       # Where our data will be persisted
     volumes:
       - database:/var/lib/mysql
@@ -50,6 +40,6 @@ services:
       - localnet
 networks:
   localnet:
-    driver: bridge
 volumes:
   database:
+  app:
