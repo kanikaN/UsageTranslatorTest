@@ -4,11 +4,8 @@
 ## Steps to start the project
   The test was made using Lumen - a microframework of laravel
   It comes with its server setting using Homestead
-  - To start the server , run -
-       #####composer install
-  - For the purpose of this test, musql is running through docker, using a mysql image
-  to start mysql run
-      #####docker compose up
+  - To start the server , and mysql run -
+      #####docker-compose up
 ## For running the test
 The input csv file, Sample_Report.csv is passed through an api call. please note, i havnt used any host alias, at this point it will run on localhost. Configuration defined in .env file 
 - the api will be a POST call to localhost:8080/upload-file.
